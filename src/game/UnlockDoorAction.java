@@ -12,6 +12,11 @@ import edu.monash.fit2099.engine.positions.Location;
  */
 public class UnlockDoorAction extends Action {
 
+    private final Door door;
+
+    public UnlockDoorAction(Door door) {
+        this.door = door;
+    }
     /**
      * When executed, it will search for a nearby door and unlock it.
      *
@@ -21,21 +26,12 @@ public class UnlockDoorAction extends Action {
      */
     @Override
     public String execute(Actor actor, GameMap map) {
-        Location currentLocation = map.locationOf(actor);
-        for (Exit exit : currentLocation.getExits()) {
-            Location surroundingLocation = exit.getDestination();
-            Ground surroundingGround = surroundingLocation.getGround();
-            if (surroundingGround.getDisplayChar() == '=') {
-                Door door = (Door) surroundingGround;
-                door.isUnlocked = true;
-                return actor + " unlocked " + door + " at " + surroundingLocation;
-            }
-        }
-        return "There is no door to unlock.";
+        door.unlock();
+        return actor + " unlocks the Door.";
     }
 
     @Override
     public String menuDescription(Actor actor) {
-        return actor + " unlocks door";
+        return actor + " unlocks Door with Access Card";
     }
 }

@@ -44,6 +44,7 @@ public abstract class GameEntity {
      * @return true if the game entity has the queried statistic, false otherwise
      */
     public boolean hasStatistic(Enum<?> name) {
+
         return this.statistics.containsKey(name);
     }
 

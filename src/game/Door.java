@@ -9,7 +9,7 @@ import edu.monash.fit2099.engine.positions.Ground;
  * piece of plastic.
  */
 public class Door extends Ground {
-    boolean isUnlocked = false;
+    private boolean isUnlocked = false;
 
     public Door() {
         super('=', "Door");
@@ -17,9 +17,16 @@ public class Door extends Ground {
 
     /**
      * if the door is unlocked, any actor can step into the door
-     * @param actor the Actor to check
      * @return true if the door is unlocked, false otherwise.
      */
+    public void unlock() {
+        this.isUnlocked = true;
+    }
+
+    public boolean isUnlocked() {
+        return isUnlocked;
+    }
+
     @Override
     public boolean canActorEnter(Actor actor) {
         return isUnlocked;

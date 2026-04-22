@@ -56,16 +56,24 @@ public class EclipseNebula extends World {
         GameMap moon99DeprecatedMap = new GameMap("99-Deprecated", groundCreator, moon99Deprecated);
         this.addGameMap(moon99DeprecatedMap);
 
-        moon99DeprecatedMap.at(7, 2).addItem(new AccessCard());
+        // Ship items — one instance each, placed inside the armoured ship
+        moon99DeprecatedMap.at(5, 3).addItem(new AccessCard());
+        moon99DeprecatedMap.at(6, 3).addItem(new FirstAidKit());
+        moon99DeprecatedMap.at(7, 3).addItem(new SterilisationBox());
 
-        Inventory inventory1 = new BasicInventory();
-        inventory1.add(new Flask());
-        // BEHOLD, LOCAL MULTIPLAYER!!!
-        ContractedWorker contractedWorker1 = new ContractedWorker("#1 Bob", 'ඞ', 10, inventory1);
-        ContractedWorker contractedWorker2 = new ContractedWorker("#2 Tom", 'ඞ', 10, inventory1);
-        ContractedWorker contractedWorker3 = new ContractedWorker("#3 Sarah", 'ඞ', 10, inventory1);
-        ContractedWorker contractedWorker4 = new ContractedWorker("#4 Julie", 'ඞ', 10, inventory1);
-        ContractedWorker contractedWorker5 = new ContractedWorker("#5 Rick", 'ඞ', 10, inventory1);
+        // Each worker gets their own WeightLimitedInventory(50) and their own Flask
+        ContractedWorker contractedWorker1 = new ContractedWorker("#1 Bob",   'ඞ', 10, new WeightLimitedInventory(50));
+        ContractedWorker contractedWorker2 = new ContractedWorker("#2 Tom",   'ඞ', 10, new WeightLimitedInventory(50));
+        ContractedWorker contractedWorker3 = new ContractedWorker("#3 Sarah", 'ඞ', 10, new WeightLimitedInventory(50));
+        ContractedWorker contractedWorker4 = new ContractedWorker("#4 Julie", 'ඞ', 10, new WeightLimitedInventory(50));
+        ContractedWorker contractedWorker5 = new ContractedWorker("#5 Rick",  'ඞ', 10, new WeightLimitedInventory(50));
+
+        contractedWorker1.getInventory().add(new Flask());
+        contractedWorker2.getInventory().add(new Flask());
+        contractedWorker3.getInventory().add(new Flask());
+        contractedWorker4.getInventory().add(new Flask());
+        contractedWorker5.getInventory().add(new Flask());
+
         this.addPlayer(contractedWorker1, moon99DeprecatedMap.at(6, 2));
         this.addPlayer(contractedWorker2, moon99DeprecatedMap.at(7, 2));
         this.addPlayer(contractedWorker3, moon99DeprecatedMap.at(8, 2));

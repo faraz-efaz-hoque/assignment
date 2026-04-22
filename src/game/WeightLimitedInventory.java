@@ -31,8 +31,8 @@ public class WeightLimitedInventory extends Inventory {
     public boolean add(Item item) {
         Display display = new Display();
         if (item.hasStatistic(ItemStatistics.WEIGHT)) {
-            int itemWeight =  item.getStatistic(ItemStatistics.WEIGHT);
-            if (weight + itemWeight < this.weightLimit) {
+            int itemWeight = item.getStatistic(ItemStatistics.WEIGHT);
+            if (weight + itemWeight <= this.weightLimit) {   // fixed: < → <=
                 items.add(item);
                 this.weight += itemWeight;
                 display.println(String.format("%s added successfully. Current inventory weight (%d/%d)", item, weight, weightLimit));
@@ -42,8 +42,7 @@ public class WeightLimitedInventory extends Inventory {
                 return false;
             }
         } else {
-            String msg = String.format("%s does not have a weight statistic", item);
-            throw new IllegalArgumentException(msg);
+            throw new IllegalArgumentException(String.format("%s does not have a weight statistic", item));
         }
     }
 
@@ -56,13 +55,12 @@ public class WeightLimitedInventory extends Inventory {
     @Override
     public boolean remove(Item item) {
         if (item.hasStatistic(ItemStatistics.WEIGHT)) {
-            int itemWeight =  item.getStatistic(ItemStatistics.WEIGHT);
+            int itemWeight = item.getStatistic(ItemStatistics.WEIGHT);
             items.remove(item);
             this.weight -= itemWeight;
             return true;
         } else {
-            String msg = String.format("%s does not have a weight statistic", item);
-            throw new IllegalArgumentException(msg);
+            throw new IllegalArgumentException(String.format("%s does not have a weight statistic", item));
         }
     }
 }

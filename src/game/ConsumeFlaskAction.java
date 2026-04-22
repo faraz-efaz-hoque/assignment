@@ -15,6 +15,11 @@ import edu.monash.fit2099.engine.positions.GameMap;
  */
 public class ConsumeFlaskAction extends Action {
 
+    private final Flask flask;
+
+    public ConsumeFlaskAction(Flask flask) {
+        this.flask = flask;
+    }
     /**
      * When executed, it will check for the actor's inventory whether they are carrying the flask.
      * If so, it will decrease the flask content and heal the actor.
@@ -25,23 +30,13 @@ public class ConsumeFlaskAction extends Action {
      */
     @Override
     public String execute(Actor actor, GameMap map) {
-        Inventory inventory = actor.getInventory();
-        Flask flask = null;
-        for (Item item : inventory.getItems()) {
-            if (item instanceof Flask) {
-                flask = (Flask) item;
-            }
-        }
-        if (flask != null) {
-            flask.totalUsable -= 1;
-            actor.heal(1);
-            return actor + " drinks flask, which heals them by 1 point of health.";
-        }
-        return actor + " does not carry a flask.";
+        flask.consume();
+        actor.heal(1);
+        return actor + " drinks from the Flask, healing 1 HP. (" + flask.getRemainingUses() + " uses remaining)";
     }
 
     @Override
     public String menuDescription(Actor actor) {
-        return actor + " consumes flask.";
+        return actor + " drinks from Flask (" + flask.getRemainingUses() + " uses remaining)";
     }
 }

@@ -56,41 +56,14 @@ public class ContractedWorker extends  Actor {
             actions.add(new PickUpAction(item));
         }
 
-        boolean isAccessCardAvailable = false;
         for (Item item : this.getInventory().getItems()) {
-            if (item instanceof AccessCard) {
-                isAccessCardAvailable = true;
-                break;
-            }
+            actions.add(item.allowableActions(this, map));  // item offers its own actions
+            actions.add(item.getDropAction(this));           // drop if portable
         }
 
-        if (isAccessCardAvailable) {
-            Location location = map.locationOf(this);
-            for (Exit exit : location.getExits()) {
-                Location surroundingLocation = exit.getDestination();
-                Ground surroundingGround = surroundingLocation.getGround();
-                if (surroundingGround.getDisplayChar() == '=') {
-                    actions.add(new UnlockDoorAction());
-                }
-            }
-        }
-
-        boolean isFlaskAvailable = false;
-        for (Item item : this.getInventory().getItems()) {
-            if (item instanceof Flask) {
-                isFlaskAvailable = true;
-            }
-        }
-
-        if (isFlaskAvailable) {
-            actions.add(new ConsumeFlaskAction());
-        }
-
-        // Handle multi-turn Actions
         if (lastAction.getNextAction() != null)
             return lastAction.getNextAction();
 
-        // return/print the console menu
         Menu menu = new Menu(actions);
         return menu.showMenu(this, display);
     }
