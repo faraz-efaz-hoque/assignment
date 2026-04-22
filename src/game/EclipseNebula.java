@@ -56,7 +56,8 @@ public class EclipseNebula extends World {
         GameMap moon99DeprecatedMap = new GameMap("99-Deprecated", groundCreator, moon99Deprecated);
         this.addGameMap(moon99DeprecatedMap);
 
-        // Ship items — one instance each, placed inside the armoured ship
+        //REQ 1 ship items
+        //one instance each, placed inside the armoured ship
         moon99DeprecatedMap.at(5, 3).addItem(new AccessCard());
         moon99DeprecatedMap.at(6, 3).addItem(new FirstAidKit());
         moon99DeprecatedMap.at(7, 3).addItem(new SterilisationBox());
