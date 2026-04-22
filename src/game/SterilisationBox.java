@@ -12,6 +12,10 @@ public class SterilisationBox extends Item {
         super("Sterilisation Box", '▣');
         this.addNewStatistic(ItemStatistics.WEIGHT, new BaseStatistic(7));
         this.makePortable();
+        this.enableAbility(Abilities.STERILISING); // MODIFIED: gives the item
+        // the STERILISING ability. Actor.hasAbility() checks all inventory
+        // items, so any actor carrying this box will return true for
+        // hasAbility(Abilities.STERILISING) without any extra code.
     }
 
     @Override
