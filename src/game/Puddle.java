@@ -1,7 +1,9 @@
 package game;
 
+import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
-
+import edu.monash.fit2099.engine.positions.Location;
 /**
  * A small, stationary body of mysterious liquid on the ground.
  * In a standard video game, this would just be water. On a deprecated moon
@@ -11,5 +13,16 @@ import edu.monash.fit2099.engine.positions.Ground;
 public class Puddle extends Ground {
     public Puddle() {
         super('~', "Puddle");
+    }
+    // MODIFIED: added entire method. direction=="" means the actor is standing
+    // ON this puddle (not beside it). Ground.allowableActions receives ""
+    // for the current tile and a direction name for adjacent tiles.
+    @Override
+    public ActionList allowableActions(Actor actor, Location location, String direction) {
+        ActionList actions = new ActionList();
+        if (direction.isEmpty()) {
+            actions.add(new DrinkFromPuddleAction());
+        }
+        return actions;
     }
 }
