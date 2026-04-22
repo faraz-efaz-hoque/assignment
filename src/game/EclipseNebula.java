@@ -62,6 +62,13 @@ public class EclipseNebula extends World {
         moon99DeprecatedMap.at(6, 3).addItem(new FirstAidKit());
         moon99DeprecatedMap.at(7, 3).addItem(new SterilisationBox());
 
+        // MODIFIED: added REQ2 facility items
+        moon99DeprecatedMap.at(30, 2).addItem(new Apple());
+        moon99DeprecatedMap.at(45, 2).addItem(new Cookies());
+        moon99DeprecatedMap.at(23, 8).addItem(new Lantern());
+        moon99DeprecatedMap.at(45, 10).addItem(new FloppyDisk());
+        moon99DeprecatedMap.at(23, 15).addItem(new CRTMonitor());
+
         // Each worker gets their own WeightLimitedInventory(50) and their own Flask
         ContractedWorker contractedWorker1 = new ContractedWorker("#1 Bob",   'ඞ', 10, new WeightLimitedInventory(50));
         ContractedWorker contractedWorker2 = new ContractedWorker("#2 Tom",   'ඞ', 10, new WeightLimitedInventory(50));
