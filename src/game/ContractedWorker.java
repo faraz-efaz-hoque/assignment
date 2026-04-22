@@ -52,14 +52,10 @@ public class ContractedWorker extends  Actor {
             return new DoNothingAction();
         }
 
-        for (Item item : map.locationOf(this).getItems()) {
-            actions.add(new PickUpAction(item));
-        }
-
-        for (Item item : this.getInventory().getItems()) {
-            actions.add(item.allowableActions(this, map));  // item offers its own actions
-            actions.add(item.getDropAction(this));           // drop if portable
-        }
+        //MODIFIED: removed two for-loops that manually added PickUpAction and
+        // item.allowableActions/getDropAction — World.prepareAllowableActions()
+        // already does all of that before playTurn is called, so those loops
+        // were duplicating every menu entry
 
         if (lastAction.getNextAction() != null)
             return lastAction.getNextAction();
