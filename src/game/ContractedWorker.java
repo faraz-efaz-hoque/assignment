@@ -22,6 +22,9 @@ import edu.monash.fit2099.engine.positions.Location;
 public class ContractedWorker extends  Actor {
     public ContractedWorker(String name, char displayChar, int hitPoints, Inventory inventory) {
         super(name, displayChar, hitPoints, inventory);
+        this.enableAbility(Abilities.WORKER); // MODIFIED: marks this actor as a
+        // worker target. Undead's AttackBehaviour calls actor.hasAbility(WORKER)
+        // to find targets — it won't attack other Undeads or Slimes.
     }
 
     /**
