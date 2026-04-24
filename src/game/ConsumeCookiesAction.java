@@ -17,18 +17,9 @@ public class ConsumeCookiesAction extends Action {
 
     @Override
     public String execute(Actor actor, GameMap map) {
-        cookies.consume();
-        String result;
-        if (actor.hasAbility(Abilities.STERILISING)) {
-            actor.heal(1);
-            result = actor + " eats a sterilised cookie. (+1 HP, " + cookies.getRemainingUses() + " left)";
-        } else {
-            // permanently lowers max HP; BaseStatistic also caps current HP to new max
-            actor.modifyStatisticMaximum(ActorStatistics.HEALTH, StatisticOperations.DECREASE, 1);
-            result = actor + " eats a cookie. (Max HP -1, " + cookies.getRemainingUses() + " left)";
-        }
+        String result = cookies.consumedBy(actor, map); // MODIFIED: was cookies.consume() + inline if/else
         if (cookies.isExhausted()) {
-            actor.getInventory().remove(cookies); // all 5 eaten — remove from inventory
+            actor.getInventory().remove(cookies);        // unchanged
         }
         return result;
     }

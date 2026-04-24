@@ -15,14 +15,9 @@ public class ConsumeAppleAction extends Action {
 
     @Override
     public String execute(Actor actor, GameMap map) {
-        actor.getInventory().remove(apple); // disappears immediately on use
-        if (actor.hasAbility(Abilities.STERILISING)) {
-            actor.heal(3);
-            return actor + " eats a sterilised apple. (+3 HP)";
-        } else {
-            actor.addStatus(new PoisonStatus(1, 5)); // 1 dmg/turn for 5 turns
-            return actor + " eats a spoiled apple... it's toxic! (1 damage/turn for 5 turns)";
-        }
+        String result = apple.consumedBy(actor, map); // MODIFIED: was inline if/else; now delegates to Apple
+        actor.getInventory().remove(apple);            // unchanged — worker removes from inventory
+        return result;
     }
 
     @Override

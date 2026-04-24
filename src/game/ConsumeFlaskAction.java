@@ -30,9 +30,7 @@ public class ConsumeFlaskAction extends Action {
      */
     @Override
     public String execute(Actor actor, GameMap map) {
-        flask.consume();
-        actor.heal(1);
-        return actor + " drinks from the Flask, healing 1 HP. (" + flask.getRemainingUses() + " uses remaining)";
+        return flask.consumedBy(actor, map); // MODIFIED: was flask.consume() + actor.heal(1) + return string
     }
 
     @Override
